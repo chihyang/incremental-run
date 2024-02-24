@@ -21,7 +21,7 @@
   (let ((res-length (length res)))
     (printf "~a/~a result~a returned~a\n"
             res-length query-n
-            (if (> res-length 1) "s" "")
+            (if (= res-length 1) "" "s")
             (if (> res-length 0) ":" "."))
     (for ((r res))
       (printf "==========================\n")

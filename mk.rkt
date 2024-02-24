@@ -200,16 +200,6 @@
     (lambda (q)
       (run-goal n (fq q) q fr))))
 
-
-; Takes a value which is either a variable or non variable
-; and after walk* is done, every variable has been replaced
-; by its walked* value.
-
-; e.g.:
-; v = (x (y h) z (j 5 h))
-; s = ((x . 2) (y . 3) (z . 4) (j . k))
-; ((reify v) s) = (2 (3 h) 4 (k 5 h))
-
 ;;; run* : (-> (-> Var Goal) (Listof Any))
 ; Given a function that takes a Var and returns a goal,
 ; returns all the results of unifying the goal; if there are
@@ -220,6 +210,14 @@
     (lambda (q)
       (reify∞* ((fq q) initial-state) (reify q)))))
 
+; Takes a value which is either a variable or non variable
+; and after walk* is done, every variable has been replaced
+; by its walked* value.
+
+; e.g.:
+; v = (x (y h) z (j 5 h))
+; s = ((x . 2) (y . 3) (z . 4) (j . k))
+; ((reify v) s) = (2 (3 h) 4 (k 5 h))
 (define (reify v)
   (lambda (S)
     (let ((v (walk* v S)))
@@ -284,8 +282,8 @@
 (define (reify∞+ n S∞ q fr)
   (let ((result (reify∞ n S∞ (reify q) '())))
     (let ((_ (fr (car result) n)))
-      (λ (res)
-        (let ((g (== res q)))
+      (λ (q^)
+        (let ((g (== q^ q)))
           (λ (S)
             (product∞ (cdr result) (g S))))))))
 
