@@ -273,11 +273,14 @@
     (else (λ () (merge∞ S (S∞))))))
 
 (define (product-S S1 S2)
-  (match S1
-    (`() S2)
-    (`((,x . ,v) . ,S1^)
-     (let ((S2^ (unify x v S2)))
-       (if S2^ (product-S S1^ S2^) #f)))))
+  (cond
+    ((eqv? S1 `()) S2)
+    (else
+     (let ((x (car (car S1)))
+           (v (cdr (car S1)))
+           (S1^ (cdr S1)))
+       (let ((S2^ (unify x v S2)))
+         (if S2^ (product-S S1^ S2^) #f))))))
 
 (define (reify∞+ n S∞ q fr)
   (let ((result (reify∞ n S∞ (reify q) '())))
