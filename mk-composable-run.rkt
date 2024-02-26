@@ -187,7 +187,7 @@
            ((conj g ...) S)))))))
 
 ;;; ----------- Ways to run a goal -----------
-;;; run : (-> (∪ #f Int) (-> Var Goal) (-> (Listof Any) Any) (-> Var Goal))
+;;; run : (-> Int (-> Var Goal) (-> (Listof Any) Any) (-> Var Goal))
 ; Given a nonnegative integer n, a function fq that takes a
 ; Var and returns a goal, and a function fr that takes a
 ; list of results, passes the first n results of unifying
@@ -284,7 +284,8 @@
 
 (define (reify∞+ n S∞ q fr)
   (let ((result (reify∞ n S∞ (reify q) '())))
-    (let ((_ (fr (car result) n)))
+    (begin
+      (fr (car result) n)
       (λ (q^)
         (let ((g (== q^ q)))
           (λ (S)
