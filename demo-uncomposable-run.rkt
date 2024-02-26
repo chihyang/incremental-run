@@ -1,6 +1,6 @@
 #lang racket
 
-(require "mk-composable-run.rkt")
+(require "mk-uncomposable-run.rkt")
 
 (defrel (appendo l1 s2 o)
   (disj
@@ -65,7 +65,8 @@
         simple-printer)
     pretty-printer))
 
-;;; The following two examples do give the same answer!
+;;; The following two examples are supposed to give the same
+;;; answer but they don't!
 (define compose-goal
   (run 2 (lambda (p)
            (conj
