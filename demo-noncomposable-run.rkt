@@ -1,6 +1,6 @@
 #lang racket
 
-(require "mk-uncomposable-run.rkt")
+(require "mk-noncomposable-run.rkt")
 
 (defrel (appendo l1 s2 o)
   (disj
