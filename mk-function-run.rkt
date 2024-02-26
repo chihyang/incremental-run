@@ -192,9 +192,11 @@
 ; Var and returns a goal, and a function fr that takes a
 ; list of results, passes the first n results of unifying
 ; the goal to fq, then returns a function. The returned
-; function takes a Var, and returns a goal. When this goal
-; is invoked with run again, it gives the results after the
+; function takes a nonnegative integer k. When this function
+; is invoked, it gives (at most) k more results after the
 ; first n results from the original goal that fq returns.
+; Then it returns another function that takes a nonnegative
+; integer and can give more results.
 (define (run n fq fr)
   (call/fresh 'q
     (lambda (q)
